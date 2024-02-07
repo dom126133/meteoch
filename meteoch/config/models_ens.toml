@@ -1,0 +1,10 @@
+url = "https://ensemble-api.open-meteo.com/v1/ensemble"
+
+[model]
+    [model.dwd_icon_eps_seamless]
+        model = "icon_seamless"
+        name  = "DWD Icon EPS Seamless"
+
+    [model.ifs_025_ens]
+        model = "ecmwf_ifs025"
+        name = "ECMWF IFS 0.25° Ensemble"

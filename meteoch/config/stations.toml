@@ -1,0 +1,20 @@
+[gve]
+    name = "Genève"
+    lat = 46.2022
+    long = 6.1457
+    elev = 405
+    timezone = "Europe/Berlin"
+
+[pay]
+    name = "Payerne"
+    lat = 46.8219
+    long = 6.9382
+    elev = 452
+    timezone = "Europe/Berlin"
+
+[sio]
+    name = "Sion"
+    lat = 46.2274
+    long = 7.3556
+    elev = 488
+    timezone = "Europe/Berlin"

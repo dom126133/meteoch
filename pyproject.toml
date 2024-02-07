@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "meteoch"
+version = "0.1.0"
+description = "Visualisation de données météorologiques pour la Suisse"
+authors = ["Dominique Stussi <dominique.stussi@ik.me>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.109.1"
+pandas = "^2.2.0"
+requests = "^2.31.0"
+pyarrow = "^15.0.0"
+tomli = "^2.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+jupyter = "^1.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
