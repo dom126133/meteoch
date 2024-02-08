@@ -13,7 +13,7 @@ class Threshold_pc:
     def end_time(self):
         return self.end_time
 
-    def _calculate(self, time, threshold):
+    def _compute_threshold(self, time, threshold, type='min'):
         values = self.data.loc[(self.data['time'] >= time) & (self.data['time'] < time + timedelta(days=1))]
         
         tn = values.min()
@@ -29,15 +29,15 @@ class Threshold_pc:
         # Accessing all the values less than threshold 
         # counting them and return % value
         # count number of values and divide by the number of rows
-        no_under_threshold = result.loc[result['min'] <= threshold, 'min'].count()
-        no_total = result['min'].count()
+        no_under_threshold = result.loc[result[type] <= threshold, type].count()
+        no_total = result[type].count()
         pc_tn = no_under_threshold / no_total *100
         return [f"{time:%Y-%m-%d}", f"{no_under_threshold}/{no_total}", f"{pc_tn:.0f} %"]
 
-    def pc(self, threshold):
+    def pc(self, threshold, type):
         time = self.begin_time
         result = []
         while time < self.end_time:
-            result.append(self._calculate(time, threshold))
+            result.append(self._compute_threshold(time, threshold, type))
             time = time + timedelta(days=1)
         return result

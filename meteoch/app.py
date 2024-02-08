@@ -1,6 +1,6 @@
 from config import STATIONS, MODELS_DET, MODELS_ENS, PARAMETERS
 import retrieve
-import calculs
+import compute
 
 url = MODELS_ENS['url']
 print(f"URL: {url}")
@@ -18,9 +18,9 @@ data = retrieve.retrieve(full_url, type)
 
 #print(data)
 
-threshold_pc = calculs.Threshold_pc(data)
+threshold_pc = compute.Threshold_pc(data)
 
-thresholds = threshold_pc.pc(0)
+thresholds = threshold_pc.pc(0, 'min')
 
 print("Date         % < 0 °C")
 for threshold in thresholds:
