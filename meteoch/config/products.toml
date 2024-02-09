@@ -1,0 +1,15 @@
+[coldwave]
+    title = "Prévision vague de froid pour Genève"
+    model = "dwd_icon_eps_seamless"
+    period = 7
+    parameter = "t2m"
+    parameter_type = "min"
+    thresholds = [-5, 0, 5]
+
+[heatwave]
+    title = "Prévision vague de chaleur pour le bassin lémanique"
+    model = "dwd_icon_eps_seamless"
+    period = 7
+    parameter = "t2m"
+    parameter_type = "mean"
+    thresholds = [25, 27]

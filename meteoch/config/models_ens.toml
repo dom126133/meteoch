@@ -8,3 +8,7 @@ url = "https://ensemble-api.open-meteo.com/v1/ensemble"
     [model.ifs_025_ens]
         model = "ecmwf_ifs025"
         name = "ECMWF IFS 0.25° Ensemble"
+
+    [model.gfs_ensemble_seamless]
+        model = "gfs_seamless"
+        name = "GFS Ensemble Seamless"
