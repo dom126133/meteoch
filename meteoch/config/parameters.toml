@@ -1,4 +1,4 @@
 [t2m]
     name = "Température (2m)"
-    kind = "hourly"
-    param = "temperature_2m"
+    granularity = "hourly"
+    parameter = "temperature_2m"
