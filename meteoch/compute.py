@@ -32,7 +32,8 @@ class Threshold_pc:
         no_under_threshold = result.loc[result[type] <= threshold, type].count()
         no_total = result[type].count()
         pc_tn = no_under_threshold / no_total *100
-        return [f"{time:%Y-%m-%d}", f"{no_under_threshold}/{no_total}", f"{pc_tn:.0f} %"]
+        #return [f"{time:%Y-%m-%d}", f"{no_under_threshold}/{no_total}", f"{pc_tn:.0f} %"]
+        return int(f"{pc_tn:.0f}")
 
     def pc(self, threshold, type):
         time = self.begin_time
@@ -41,3 +42,16 @@ class Threshold_pc:
             result.append(self._compute_threshold(time, threshold, type))
             time = time + timedelta(days=1)
         return result
+
+    def abscissa(self):
+        """return first column as a serie for bar graph"""
+
+        # generate an empty dataframe
+        date = pd.DataFrame({})
+        # convert date to str
+        date_str = self.data['time'].dt.strftime("%d-%m-%Y")
+        # remove duplicate
+        date_no_dup = date_str.drop_duplicates()
+        # convert to list
+        date_list = date_no_dup.tolist()
+        return date_list

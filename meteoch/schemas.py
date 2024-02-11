@@ -6,7 +6,7 @@ class Coldwave(BaseModel):
 
     @validator('station')
     def check_station(cls, station):
-        print(f"STATION: {station}")
+        #print(f"STATION: {station}")
         if station not in STATION_LIST:
             raise ValueError(f"{station} is not in STATION_LIST")
         return station
