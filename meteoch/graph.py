@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import io
-import base64, urllib
 
 def coldwave_graph(x, y1, y2, y3):
     #print(x, y1, y2, y3)
