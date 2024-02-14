@@ -2,11 +2,13 @@ from fastapi import FastAPI, Response, status
 from pydantic import ValidationError
 import uvicorn
 import itertools
+import pandas.core.frame
 from meteoch.config import STATIONS, MODELS_DET, MODELS_ENS, PARAMETERS, PRODUCTS, INTERFACE
 from meteoch.retrieve import retrieve
 from meteoch.compute import Threshold_pc
 from meteoch.schemas import Coldwave
 from meteoch.graph import coldwave_graph
+from meteoch.mosmix import mosmix_tntx
 
 app = FastAPI(title=INTERFACE['title'])
 
@@ -74,6 +76,12 @@ async def coldwave(station:str, response: Response):
     graph = coldwave_graph(x, thresholds0, thresholds1, thresholds2)
 
     return Response(content=graph, media_type="image/png")
+
+@app.get("/mosmix/tntx")
+#async def get_mosmix_tntx(synopid:str="06700")->list[pandas.core.frame.DataFrame, pandas.core.frame.DataFrame]:
+async def get_mosmix_tntx(synopid:str="06700"):
+    [tn, tx] = mosmix_tntx(synopid)
+    return [tn, tx]
 
 if __name__ == "__main__":
     uvicorn.run("asgi:app", host="127.0.0.1", port=8001, reload=True, log_level='debug')
