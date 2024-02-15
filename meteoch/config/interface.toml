@@ -1,3 +1,3 @@
 title = "METEO CH"
-bienvenue = "API to get data used for MCH forecasts"
+bienvenue = "API used by MCH forecasters to get useful data"
 debug = true

@@ -1,10 +1,13 @@
 [coldwave]
-    title = "Prévision vague de froid pour Genève"
+    title = "Prévision pour {station} : Température minimale"
     model = "dwd_icon_eps_seamless"
     period = 7
     parameter = "t2m"
     parameter_type = "min"
     thresholds = [-5, 0, 5]
+    colors = ['#1605fc','#0579fc','#05c2fc']  # bleu foncé, bleu moyen, bleu clair
+    figsize_width = 12
+    figsize_height = 7
 
 [heatwave]
     title = "Prévision vague de chaleur pour le bassin lémanique"
