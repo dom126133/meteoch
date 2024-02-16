@@ -1,0 +1,7 @@
+[url]
+    baseurl = "https://opendata.dwd.de/"
+    mosmix_l ="weather/local_forecast/mos/MOSMIX_L/"
+    mosmix_s ="weather/local_forecast/mos/MOSMIX_S/"
+    single_station = "single_station/"
+    all_stations = "all_stations/kml/"
+    filename

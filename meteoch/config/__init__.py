@@ -13,6 +13,7 @@ config = {'STATIONS' : 'stations.toml',
           'PARAMETERS' : 'parameters.toml',
           'PRODUCTS' : 'products.toml',
           'INTERFACE': 'interface.toml',
+          'OPENDATA_DWD': 'opendata_dwd.toml',
           }
 
 # parse config files
