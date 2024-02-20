@@ -4,4 +4,4 @@
     mosmix_s ="weather/local_forecast/mos/MOSMIX_S/"
     single_station = "single_station/"
     all_stations = "all_stations/kml/"
-    filename
+    filename =""
