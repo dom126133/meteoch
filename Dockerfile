@@ -1,4 +1,4 @@
-FROM python:3.11-bookworm AS builder
+FROM python:3.11-slim-bullseye AS builder
 
 ADD poetry.lock /src/app-root/
 ADD pyproject.toml /src/app-root/
@@ -11,7 +11,7 @@ WORKDIR /src/app-root
 RUN poetry export -o requirements.txt \
     && poetry export --dev -o requirements_dev.txt
 
-FROM python:3.11-bookworm AS runner
+FROM python:3.11-slim-bullseye AS runner
 
 COPY --from=builder /src/app-root/requirements.txt /src/app-root/requirements.txt
 
