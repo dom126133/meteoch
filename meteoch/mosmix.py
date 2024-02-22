@@ -22,6 +22,8 @@ from wetterdienst.util.cli import setup_logging
 
 import pandas as pd
 import pandas.core.frame
+#import polars as pl
+#pl.Config.set_tbl_rows(500)
 
 def mosmix_tntx(synopid:str="06700")->list[pandas.core.frame.DataFrame, pandas.core.frame.DataFrame]:
     """Retrieve Mosmix mosmix data by DWD."""
@@ -47,20 +49,17 @@ def mosmix_tntx(synopid:str="06700")->list[pandas.core.frame.DataFrame, pandas.c
     
     # transform polars dataframe to pandas dataframe
     tntx = response.df.to_pandas()
-
-    # drop unnecessary columns
-    tntx.drop(columns=['station_id', 'parameter', 'dataset', 'quality'], inplace=True)
-
-    # convert temperature to Celsius
+    
+    # convert temperature to Celsius in a new column
     tntx['Celsius'] = tntx['value'] - 273.15
 
     # create tn and tx dataframe
-    tn = (tntx.where(tntx['date'].dt.hour == 6))
-    tx = tntx.where(tntx['date'].dt.hour == 18)
+    tn = tntx.loc[(tntx['date'].dt.hour == 6) & (tntx['parameter'] == 'temperature_air_min_200')]
+    tx = tntx.loc[(tntx['date'].dt.hour == 18) & (tntx['parameter'] == 'temperature_air_max_200')]
 
-    # drop NaN row from dataframe
-    tn.dropna(inplace=True)
-    tx.dropna(inplace=True)
+    # drop unnecessary columns
+    tn.drop(columns=['station_id', 'parameter', 'dataset', 'quality'], inplace=True)
+    tx.drop(columns=['station_id', 'parameter', 'dataset', 'quality'], inplace=True)
 
     return [tn, tx]
 
