@@ -24,7 +24,7 @@ import pandas as pd
 import pandas.core.frame
 #import polars as pl
 #pl.Config.set_tbl_rows(500)
-from meteoch.config import CH_MOSMIX_STATIONS
+from meteoch.config import CH_MOSMIX_STATIONS, Mosmix
 
 def mosmix_tntx(synopid:str="06700")->list[pandas.core.frame.DataFrame, pandas.core.frame.DataFrame]:
     """Retrieve Mosmix mosmix data by DWD."""
@@ -83,6 +83,10 @@ def main():
     print(f"Tn\n{tn.head(20)}")
     print(f"Tx\n{tx.head(20)}")
     station_list(land='ch')
+    mosmix = Mosmix()
+    mosmix_df = mosmix.mosmix_df(land='ch')
+    print(mosmix_df.to_string())
+    #print(mosmix.__str__())
 
 if __name__ == "__main__":
     main()
