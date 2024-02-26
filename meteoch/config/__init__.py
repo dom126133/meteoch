@@ -14,6 +14,7 @@ config = {'STATIONS' : 'stations.toml',
           'PRODUCTS' : 'products.toml',
           'INTERFACE': 'interface.toml',
           'OPENDATA_DWD': 'opendata_dwd.toml',
+          'MOSMIX' : 'mosmix.toml',
           }
 
 # parse config files
@@ -26,3 +27,8 @@ for key in config.keys():
 STATION_LIST = []
 for station in STATIONS:  # type: ignore  # noqa: F821
     STATION_LIST.append(station)
+
+# generate mosmix_station_list
+CH_MOSMIX_STATIONS = []
+for station in MOSMIX['ch']:  # type: ignore  # noqa: F821
+    CH_MOSMIX_STATIONS.append(station)

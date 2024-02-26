@@ -13,3 +13,7 @@ docker push bigmil/meteoch
 
 docker image ls
 docker tag meteoch bigmil/meteoch
+
+# MosMix
+
+- https://www.dwd.de/EN/ourservices/met_application_mosmix/met_application_mosmix.html
