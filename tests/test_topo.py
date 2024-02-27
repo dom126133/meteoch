@@ -45,7 +45,7 @@ class Topo_testcase(unittest.TestCase):
 
     def test_WGStoCHe(self):
         # Convert WGS lat/long (° dec) to CH e
-        result = topo.Topo.WGStoCHn(self, 46.20222, 6.14569) # lat, lng
+        result = topo.Topo.WGStoCHe(self, 46.20222, 6.14569) # lat, lng
         self.assertAlmostEqual(result, 3.3958, places=4)
 
     #def test_LV95toWGS84(self):
@@ -59,3 +59,6 @@ class Topo_testcase(unittest.TestCase):
     #    # 2500204.1762987897, 1117575.5781232517, 367.5086178779602
     #    result = topo.Topo.WGS84toLV95(self, 46.20222, 6.14569, 420) # latitude, longitude, ellHeight
     #    self.assertEquals(result, [2500204.1762987897, 1117575.5781232517, 367.5086178779602])
+
+if __name__ == '__main__':
+    unittest.main()
