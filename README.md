@@ -19,3 +19,8 @@ docker tag meteoch bigmil/meteoch
 - https://www.dwd.de/EN/ourservices/met_application_mosmix/met_application_mosmix.html
 
 - in order to read easyly the cfg file conbvert it in csv with libreoffice, first in ods in oder to have the possibiliy to choose separator in csv
+
+# Topo
+
+All the calculation are tacke n from swisstopo https://www.swisstopo.admin.ch/en/transformation-calculation-services
+

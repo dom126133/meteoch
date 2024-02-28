@@ -35,40 +35,32 @@ class Topo(object):
     Topo class which is able to perform convertions between the 
     LV95 and WGS84 system.
     '''
-    # Convert CH y/x/h to WGS height
-    def CHtoWGSheight(self, y, x, h):
-        # Axiliary values (% Bern)
-        y_aux = (y - 2600000) / 1000000
-        x_aux = (x - 1200000) / 1000000
-        h = (h + 49.55) - (12.60 * y_aux) - (22.64 * x_aux)
-        return h
+    # Convert LV95(E,N,h) to WGS84
+    def LV95toWGS84(self, easting=None, northing=None, altitude=None):
+        # Convert thr projection coordinates easting and northing in LV95
+        # into the civilian system (Bern = 0 / 0) and express in the unit [1000 km]
+        easting_p = (easting - 2600000) / 1000000
+        northing_p = (northing - 1200000) / 1000000
 
-    # Convert CH y/x to WGS lat
-    def CHtoWGSlat(self, y, x):
-        # Axiliary values (% Bern)
-        y_aux = (y - 2600000) / 1000000
-        x_aux = (x - 1200000) / 1000000
-        lat = (16.9023892 + (3.238272 * x_aux)) + \
-                - (0.270978 * pow(y_aux, 2)) + \
-                - (0.002528 * pow(x_aux, 2)) + \
-                - (0.0447 * pow(y_aux, 2) * x_aux) + \
-                - (0.0140 * pow(x_aux, 3))
-        # Unit 10000" to 1" and convert seconds to degrees (dec)
-        lat = (lat * 100) / 36
-        return lat
+        # calculate longitude lambda_wgs and latitude phi_wgs in the unit [10000"]
+        lambda_wgs_p = 2.6779094 + 4.728982 * easting_p \
+                     + 0.791484 * easting_p * northing_p \
+                     + 0.1306 * easting_p * pow(northing_p, 2) \
+                     - 0.0436 * pow(easting_p, 3)
+        phi_wgs_p = 16.9023892 + 3.238272 * northing_p \
+                  - 0.270978 * pow(easting_p, 2) \
+                  - 0.002528 * pow(northing_p, 2) \
+                  - 0.0447 * pow(easting_p, 2) * northing_p \
+                  - 0.0140 * pow(northing_p, 3)
+        # calculate altitude
+        altitude_wgs = altitude + 49.55 \
+                     - 12.60 * easting_p \
+                     - 22.64 * northing_p
+        # convert longitude and latitude to the unit [°]
+        lambda_wgs = lambda_wgs_p * 100 / 36
+        phi_wgs = phi_wgs_p * 100 / 36
+        return [lambda_wgs, phi_wgs, altitude_wgs]
 
-    # Convert CH y/x to WGS long
-    def CHtoWGSlng(self, y, x):
-        # Axiliary values (% Bern)
-        y_aux = (y - 2600000) / 1000000
-        x_aux = (x - 1200000) / 1000000
-        lng = (2.6779094 + (4.728982 * y_aux) + \
-                + (0.791484 * y_aux * x_aux) + \
-                + (0.1306 * y_aux * pow(x_aux, 2))) + \
-                - (0.0436 * pow(y_aux, 3))
-        # Unit 10000" to 1" and convert seconds to degrees (dec)
-        lng = (lng * 100) / 36
-        return lng
 
     # Convert decimal angle (° dec) to sexagesimal angle (dd.mmss,ss)
     def DecToSexAngle(self, dec):
@@ -97,88 +89,11 @@ class Topo(object):
         second = (((dms - degree) * 100) - minute) * 100
         return degree + (minute / 60) + (second / 3600)
     
-    # Convert WGS lat/long (° dec) and height to CH h
-    def WGStoCHh(self, lat, lng, h):
-        lat = self.DecToSexAngle(lat)
-        lng = self.DecToSexAngle(lng)
-        lat = self.SexAngleToSeconds(lat)
-        lng = self.SexAngleToSeconds(lng)
-        # Axiliary values (% Bern)
-        lat_aux = (lat - 169028.66) / 10000
-        lng_aux = (lng - 26782.5) / 10000
-        h = (h - 49.55) + (2.73 * lng_aux) + (6.94 * lat_aux)
-        return h
 
-    # Convert WGS lat/long (° dec) to CH n
-    def WGStoCHn(self, lat, lng):
-        lat = self.DecToSexAngle(lat)
-        lng = self.DecToSexAngle(lng)
-        lat = self.SexAngleToSeconds(lat)
-        lng = self.SexAngleToSeconds(lng)
-        # Axiliary values (% Bern)
-        lat_aux = (lat - 169028.66) / 10000
-        lng_aux = (lng - 26782.5) / 10000
-        x = ((1200147.07 + (308807.95 * lat_aux) + \
-            + (3745.25 * pow(lng_aux, 2)) + \
-            + (76.63 * pow(lat_aux,2))) + \
-            - (194.56 * pow(lng_aux, 2) * lat_aux)) + \
-            + (119.79 * pow(lat_aux, 3))
-        return x
-
-	# Convert WGS lat/long (° dec) to CH e
-    def WGStoCHe(self, lat, lng):
-        lat = self.DecToSexAngle(lat)
-        lng = self.DecToSexAngle(lng)
-        lat = self.SexAngleToSeconds(lat)
-        lng = self.SexAngleToSeconds(lng)
-        # Axiliary values (% Bern)
-        lat_aux = (lat - 169028.66) / 10000
-        lng_aux = (lng - 26782.5) / 10000
-        y = (2600072.37 + (211455.93 * lng_aux)) + \
-            - (10938.51 * lng_aux * lat_aux) + \
-            - (0.36 * lng_aux * pow(lat_aux, 2)) + \
-            - (44.54 * pow(lng_aux, 3))
-        return y
-
-    def LV95toWGS84(self, east, north, height):
-        '''
-        Convert LV95 to WGS84 Return a array of double that contain lat, long,
-        and height
-        '''
-        d = []
-        d.append(self.CHtoWGSlat(east, north))
-        d.append(self.CHtoWGSlng(east, north))
-        d.append(self.CHtoWGSheight(east, north, height))
-        return d
-        
-    def WGS84toLV95(self, latitude, longitude, ellHeight):
-        '''
-        Convert WGS84 to LV95 Return an array of double that contaign east,
-        north, and height
-        '''
-        d = []
-        d.append(self.WGStoCHe(latitude, longitude))
-        d.append(self.WGStoCHn(latitude, longitude))
-        d.append(self.WGStoCHh(latitude, longitude, ellHeight))
-        return d
         
 if __name__ == "__main__":
     ''' Example usage for the Topo class.'''
-
-    converter = Topo()
-    
-    # Convert WGS84 to LV95 coordinates
-    wgs84 = [46.95108, 7.438637, 0]
-    lv95 = converter.WGS84toLV95(wgs84[0], wgs84[1], wgs84[2])
-
-    print(f"WGS84: {wgs84}")
-    print (f"LV95: {lv95}")
-    # Convert LV95 to WGS84 coordinates
-    lv95  = [2700000, 1100000, 600]
-    wgs84 = converter.LV95toWGS84(lv95[0], lv95[1], lv95[2])
-    print(f"LV95: {lv95}")
-    print(f"WGS84: {converter.DecToSexAngle(wgs84[0])}; {converter.DecToSexAngle(wgs84[1])}; {wgs84[2]}")
-
+    pass    
 
 
 

@@ -3,11 +3,26 @@ from meteoch import topo
 
 class Topo_testcase(unittest.TestCase):
 
-    #def test_CHtoWGSheight(self):
-    #    # Convert CH y/x/h to WGS height
-    #    result = topo.Topo.CHtoWGSheight(y,x,h) # y,x,h
-    #    self.assertAlmostEqual(result, 1, places=1)
-
+    def test_LV95toWGS84(self):
+        # Convert CH y/x/h to WGS height
+        # use http://geodesy.geo.admin.ch/reframe/lv95towgs84?easting=2600000&northing=1200000&altitude=550.0&format=json
+        result = topo.Topo.LV95toWGS84(self,easting=2600000,northing=1200000,altitude=550.0)
+        self.assertAlmostEqual(result[0], 7.438632502714563, delta=3.33e-5)
+        self.assertAlmostEqual(result[1], 46.95108288705888, delta=2.23e-5)
+        self.assertAlmostEqual(result[2], 599.6221912624314, delta=0.5)
+        # use http://geodesy.geo.admin.ch/reframe/lv95towgs84?easting=2498943.440&northing=1122661.169&altitude=%20421.465&format=json
+        result = topo.Topo.LV95toWGS84(self,easting=2498943.440,northing=1122661.169,altitude=421.465)
+        self.assertAlmostEqual(result[0], 6.128256946962308, delta=3.33e-5)
+        self.assertAlmostEqual(result[1], 46.24777326180602, delta=2.23e-5)
+        self.assertAlmostEqual(result[2], 473.8583213845268, delta=0.5)
+        # use value from example
+        result = topo.Topo.LV95toWGS84(self,easting=2700000,northing=1100000,altitude=600)
+        print(result)
+        #self.assertAlmostEqual(result[0], 6.128256946962308, delta=3.33e-5)
+        #self.assertAlmostEqual(result[1], 46.24777326180602, delta=2.23e-5)
+        self.assertAlmostEqual(result[2], 650.6, delta=0.5)
+        print(self.dms2deg(3))
+ 
     #def test_CHtoWGSlat(self):
     #    # Convert CH y/x to WGS lat
     #    result = topo.Topo.CHtoWGSlat(y,x) # y,x
@@ -43,10 +58,10 @@ class Topo_testcase(unittest.TestCase):
     #    result = topo.Topo.WGStoCHn(self, lat, lng) # lat, lng
     #    self.assertAlmostEqual(result, 3.3958, places=4)
 
-    def test_WGStoCHe(self):
-        # Convert WGS lat/long (° dec) to CH e
-        result = topo.Topo.WGStoCHe(self, 46.20222, 6.14569) # lat, lng
-        self.assertAlmostEqual(result, 3.3958, places=4)
+    #def test_WGStoCHe(self):
+    #    # Convert WGS lat/long (° dec) to CH e
+    #    result = topo.Topo.WGStoCHe(self, 46.20222, 6.14569) # lat, lng
+    #    self.assertAlmostEqual(result, 3.3958, places=4)
 
     #def test_LV95toWGS84(self):
     #    # Convert LV95 to WGS84
