@@ -22,5 +22,5 @@ docker tag meteoch bigmil/meteoch
 
 # Topo
 
-All the calculation are tacke n from swisstopo https://www.swisstopo.admin.ch/en/transformation-calculation-services
+All the calculation are tacken from swisstopo https://www.swisstopo.admin.ch/en/transformation-calculation-services
 
