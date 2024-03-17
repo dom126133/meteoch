@@ -22,5 +22,9 @@ docker tag meteoch bigmil/meteoch
 
 # Topo
 
-All the calculation are tacken from swisstopo https://www.swisstopo.admin.ch/en/transformation-calculation-services
+All the calculation are taken from swisstopo https://www.swisstopo.admin.ch/en/transformation-calculation-services or https://www.swisstopo.admin.ch/en/coordinates-conversion-navref
 
+# Unitest
+
+- Install pytest with poetry
+- In the test directory enter pytest
