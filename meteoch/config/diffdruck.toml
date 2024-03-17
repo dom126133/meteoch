@@ -1,0 +1,6 @@
+past_days = 1
+forecast_days = 5
+granularity = "hourly"
+parameter = "pressure_msl"
+# model from model_ens.toml
+model = "dwd_icon_eps_seamless" 

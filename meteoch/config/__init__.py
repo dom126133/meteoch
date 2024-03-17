@@ -16,13 +16,14 @@ config = {'STATIONS' : 'stations.toml',
           'INTERFACE': 'interface.toml',
           'OPENDATA_DWD': 'opendata_dwd.toml',
           'MOSMIX' : 'mosmix.toml',
+          'DIFFDRUCK' : 'diffdruck.toml',
           }
 # mosmix cfg file
 MOSMIX_CFG = 'mosmix_stations-2024-02-26.csv'
 
 # parse config files
 for key in config.keys():
-    #print(f"Parsing {config[key]}")
+    print(f"Parsing {config[key]}")
     with open('/'.join([os.path.realpath(os.path.dirname(__file__)),config[key]]), mode='rb') as fp:
         globals()[key] = tomllib.load(fp)
 

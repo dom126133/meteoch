@@ -1,20 +1,41 @@
 [gve]
     name = "Genève"
-    lat = 46.2022
-    long = 6.1457
-    elev = 405
+    lat = 46.247519
+    long = 6.127742
+    elev = 411
     timezone = "Europe/Berlin"
 
 [pay]
     name = "Payerne"
-    lat = 46.8219
-    long = 6.9382
-    elev = 452
+    lat = 46.811581
+    long = 6.942469
+    elev = 490
     timezone = "Europe/Berlin"
 
 [sio]
     name = "Sion"
-    lat = 46.2274
-    long = 7.3556
-    elev = 488
+    lat = 46.21865
+    long = 7.330203
+    elev = 482
+    timezone = "Europe/Berlin"
+
+[lug]
+    name = "Lugano"
+    lat = 46.0007
+    long = 8.909778
+    elev = 275
+    timezone = "Europe/Berlin"
+
+[klo]
+    name = "Kloten"
+    lat = 47.479611
+    long = 8.535961
+    elev = 426
+    timezone = "Europe/Berlin"
+
+[puy]
+    name = "Pully"
+    lat = 46.512283
+    long = 6.667517
+    elev = 456
     timezone = "Europe/Berlin"

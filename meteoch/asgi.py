@@ -3,13 +3,14 @@ from pydantic import ValidationError
 import uvicorn
 import itertools
 import pandas.core.frame
-from meteoch.config import STATIONS, MODELS_DET, MODELS_ENS, PARAMETERS, PRODUCTS, INTERFACE
+from meteoch.config import STATIONS, MODELS_DET, MODELS_ENS, PARAMETERS, PRODUCTS, INTERFACE, DIFFDRUCK
 from meteoch.retrieve import retrieve
 from meteoch.compute import Threshold_pc
 from meteoch.services import compute_coldwave_graph
 from meteoch.schemas import Coldwave, Mosmix_tntx
 from meteoch.graph import coldwave_graph
 from meteoch.mosmix import mosmix_tntx
+from meteoch.diffdruck import diffdruck
 
 app = FastAPI(title=INTERFACE['title'])
 
@@ -62,9 +63,18 @@ async def coldwave(station:str, response: Response):
     status_code=status.HTTP_200_OK
 )
 async def get_mosmix_tntx(synopid)->str:
-
     [tn, tx] = mosmix_tntx(synopid)
     return Response(content=f"Tn\n{tn.to_string()}\nTx\n{tx.to_string()}", media_type="text/plain")
+
+@app.get("/diffdruck")
+async def compute_diffdruck(station1, station2):
+    [data_sta1, data_sta2] = diffdruck(station1, station2)
+
+    print(data_sta1)
+    print(data_sta2)
+
+    #return [data_sta1, data_sta2]
+
 
 if __name__ == "__main__":
     uvicorn.run("asgi:app", host="127.0.0.1", port=8001, reload=True, log_level='debug')

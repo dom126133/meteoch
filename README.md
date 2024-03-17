@@ -28,3 +28,8 @@ All the calculation are taken from swisstopo https://www.swisstopo.admin.ch/en/t
 
 - Install pytest with poetry
 - In the test directory enter pytest
+
+# Emplacement des stations MCH
+
+- https://www.meteosuisse.admin.ch/services-et-publications/applications/valeurs-mesurees-et-reseaux-de-mesure.html#param=messnetz-automatisch&table=false
+- Ex PUY: https://www.meteosuisse.admin.ch/services-et-publications/applications/valeurs-mesurees-et-reseaux-de-mesure.html#param=messnetz-automatisch&table=false&station=PUY

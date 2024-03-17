@@ -38,3 +38,12 @@ def coldwave_graph(x, y1, y2, y3, title):
         image = buffer.getvalue()
     #plt.show()
     return image
+
+def diffdruck_graph(quantiles):
+    # extract x
+    x = quantiles.get['time']
+    # plot
+    fig, ax = plt.subplots()
+
+    ax.fill_between(x, y1, y2, alpha=.5, linewidth=0)
+    ax.plot(x, (y1 + y2)/2, linewidth=2)
